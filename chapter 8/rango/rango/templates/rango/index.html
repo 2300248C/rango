@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% extends "rango/base.html" %}
+{% load staticfiles %}
+{% load rango_template_tags %}
+
+<html>
+<head>
+<title>Rango</title>
+
+<link rel ="stylesheet" href ="{% static "css/base.css" %}" />
+<script src ="{% static "js/jquery.js" %}"></script>
+</head>
+<body>
+
+<h1>Rango says....</h1>
+<div>
+Hey there partner! <br/>
+
+<a href ="{% url 'add_category' %">Add a New Category</a><br/>
+<div class="row-fluid">
+    <div class="span6">
+	<h3>Most Liked Categories</h3>
+				<p>
+		         	{% if categories %}
+		             <ul class="list-group">
+		                 {% for category in categories %}
+		                 	<li class="list-group-item"><a href="{% url 'show_category' category.slug %}">{{ category.name }}</a></li>
+		                 {% endfor %}
+		             </ul>
+		        {% else %}
+		             <strong>There are no categories present.</strong>
+		        {% endif %}
+				
+				</p>
+
+			</div>
+			<div>
+				<h3>Most Viewed Pages</h3>
+				<p>
+				{% if pages %}
+				<ul class="list-group">
+				{% for page in pages %}
+				 <li class="list-group-item"><a href="{% url 'goto' %}?page_id={{page.id}}"\>{{ page.title }}</a> <span class="badge badge-pill badge-primary">{{page.views}}</span></li>
+				 {% endfor %}
+				 </ul>
+				{% else %}
+				<strong>There are no categories present.</strong>
+			 {% endif %}
+				</p>
+			</div>
+		</div>	
+
+    </div>
+</div>
+
+<a href = "{% url 'about' %}">about</a><br/>
+<img src="{% static "image/rango.jpg"%}" alt="Pitcture of Rango"/>
+</body>
+</html>
